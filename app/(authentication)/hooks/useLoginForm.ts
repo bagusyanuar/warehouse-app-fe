@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, TLoginSchema } from '@/schemas/authentication';
 import { useMutateLogin } from '@/hooks/authentication';
+import LoginService from '@/services/LoginService';
 
 const useLoginForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -15,11 +16,12 @@ const useLoginForm = () => {
             password: "",
         }
     });
-    const mutatLogin = useMutateLogin();
+    const service = new LoginService();
+    const mutateLogin = useMutateLogin(service);
 
     const onSubmit = (schema: TLoginSchema) => {
         setLoading(true);
-        mutatLogin.mutateAsync(schema, {
+        mutateLogin.mutateAsync(schema, {
             onSuccess: response => {
                 console.log(response);
             },

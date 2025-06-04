@@ -6,10 +6,10 @@ import { Passwordfield } from "@/components/input/passwordfield";
 import { Textfield } from "@/components/input/textfield";
 import { LuMail } from 'react-icons/lu';
 import { Controller } from 'react-hook-form'
-import { useLoginForm } from '../hooks'
+import { useLoginView } from '@/hooks/login'
 
 const LoginForm = () => {
-    const hook = useLoginForm();
+    const hook = useLoginView();
     return (
         <div className="w-full">
             <Controller
@@ -43,7 +43,7 @@ const LoginForm = () => {
             />
             <Button
                 onClick={hook.handleSubmit(hook.onSubmit)}
-                loading={hook.loading}
+                loading={hook.mutateLogin.isPending}
             >
                 <span className="">Sign In</span>
             </Button>
